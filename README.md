@@ -1,6 +1,6 @@
 # Gemini Watermark Remover
 
-![Live](https://img.shields.io/badge/Live_Demo-geminiremover.pages.dev-success?style=for-the-badge&logo=cloudflare)
+![Live](https://img.shields.io/badge/Live_Demo-remove-watermark.mlaas.in-success?style=for-the-badge&logo=cloudflare)
 ![Tech](https://img.shields.io/badge/Tech-HTML%20%7C%20JS%20%7C%20Tailwind-blue?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-orange?style=for-the-badge)
 
