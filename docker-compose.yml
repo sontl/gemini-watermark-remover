@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  watermark-remover-api:
+    build: .
+    ports:
+      - "8002:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - PORT=3000

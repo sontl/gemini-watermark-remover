@@ -13,8 +13,10 @@ A high-performance, **100% client-side** tool for removing watermarks from image
 ## 🚀 Features
 
 * **100% Client-Side Processing:** No servers involved. Images are processed locally in your browser for maximum privacy.
+* **Server-Side API:** Now includes a Node.js API to run processing on a server or within automated workflows.
+* **Docker Ready:** Easily containerized with Docker and Docker Compose.
 * **Lossless Restoration:** Uses exact mathematical inversion rather than AI inpainting, ensuring original pixel quality is preserved.
-* **Zero Dependencies:** Built with native ES6 Modules and Tailwind CSS (via CDN) — no complex build steps required.
+* **Zero Dependencies (Front-end):** Built with native ES6 Modules and Tailwind CSS (via CDN).
 * **Auto-Detection:** Automatically detects watermark size (48px or 96px) based on image resolution.
 * **Mobile Responsive:** Fully optimized UI for desktop and mobile devices.
 
@@ -51,15 +53,19 @@ This project uses a simple, modern static site structure using ES6 Modules.
 ```text
 gemini-remover/
 ├── assets/
-│   ├── bg_48.png       # Reference alpha map for small images
-│   ├── bg_96.png       # Reference alpha map for large images (>1024px)
-│   └── og-image.jpg    # Social media preview image
+│   ├── bg_48.png        # Reference alpha map for small images
+│   ├── bg_96.png        # Reference alpha map for large images (>1024px)
 ├── js/
-│   ├── alphaMap.js     # Logic to calculate transparency values
-│   ├── blendModes.js   # The math implementation (Reverse Formula)
-│   ├── engine.js       # Main controller (Asset loading & processing)
-│   └── app.js          # UI interaction & DOM manipulation
-└── index.html          # Main application file
+│   ├── alphaMap.js      # Logic to calculate transparency values
+│   ├── blendModes.js    # The math implementation (Reverse Formula)
+│   ├── engine.js        # Browser controller
+│   └── app.js           # UI interaction
+├── lib/
+│   └── engine-node.js   # Node.js adaptation of the restoration engine
+├── server.js            # Express API server
+├── Dockerfile           # Docker configuration
+├── docker-compose.yml   # Docker Compose configuration
+└── index.html           # Main application file
 ```
 
 ## 🛠️ Tech Stack
@@ -86,6 +92,36 @@ If you have Python installed, open a terminal in the project folder and run:
 # Python 3
 python -m http.server 8000
 ```
+
+## 🐳 Server API (Docker)
+
+You can run the processing logic as a standalone API using Docker.
+
+### 1. Run with Docker Compose
+```bash
+docker-compose up --build
+```
+The API will be available at `http://localhost:8002`.
+
+### 2. API Usage
+**Endpoint:** `POST /remove-watermark`
+
+**Request Body:**
+```json
+{
+  "imageUrl": "https://example.com/gemini-image.png",
+  "outputType": "binary" // or "base64"
+}
+```
+
+### 3. Troubleshooting (Node-Canvas Error)
+If you encounter an `invalid ELF header` error when running with volumes on macOS, it's likely due to platform-specific binary headers in `node_modules`.
+**Solution:**
+```bash
+docker compose down -v
+docker compose up --build
+```
+This clears the anonymous volume and ensures a clean build for the container's architecture.
 
 ## ⚠️ Disclaimer
 
